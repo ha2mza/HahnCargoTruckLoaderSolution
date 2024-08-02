@@ -15,18 +15,18 @@ namespace HahnCargoTruckLoader.Helper
 
     public static async void WriteToFile(string callerId, string content, string fileName = "")
     {
-      var rootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+      var rootPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
       if (fileName == "" || fileName == "\"\"")
       {
         fileName = "HahnCargoTruckLoader" + callerId + ".json";
       }
-      await using var streamWriter = new StreamWriter(Path.Combine(rootPath, fileName), false);
+      await using var streamWriter = new StreamWriter(Path.Combine(rootPath,"hahn", fileName), false);
       await streamWriter.WriteLineAsync(content);
     }
 
     public static Truck? LoadTruckFromJson()
     {
-      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HahnCargoTruckLoaderTruck.json");
+      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 12", "HahnCargoTruckLoaderTruck.json");
 
       if (!File.Exists(path)) return null;
 
@@ -36,7 +36,7 @@ namespace HahnCargoTruckLoader.Helper
 
     public static List<Crate>? LoadCratesFromJson()
     {
-      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HahnCargoTruckLoaderCrates.json");
+      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 12", "HahnCargoTruckLoaderCrates.json");
 
       if (!File.Exists(path)) return null;
 

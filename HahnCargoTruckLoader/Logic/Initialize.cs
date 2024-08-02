@@ -37,7 +37,7 @@ namespace HahnCargoTruckLoader.Logic
           new Crate { CrateID = 4, Height = 1, Width = 2, Length = 1 }, //2
           new Crate { CrateID = 5, Height = 1, Width = 1, Length = 1 }, //1
           new Crate { CrateID = 6, Height = 1, Width = 1, Length = 1 }, //1
-          new Crate { CrateID = 7, Height = 1, Width = 2, Length = 2 }, //2
+          new Crate { CrateID = 7, Height = 1, Width = 2, Length = 1 }, //2
         ];
         FileHelper.WriteToFile("Crates", JsonSerializer.Serialize(crates));
       }

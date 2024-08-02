@@ -1,0 +1,5 @@
+[
+    { "CrateID": 0, "Height": 4, "Width": 2, "Length": 1 },
+    { "CrateID": 1, "Height": 2, "Width": 1, "Length": 2 },
+    { "CrateID": 2, "Height": 2, "Width": 1, "Length": 2 }
+]
