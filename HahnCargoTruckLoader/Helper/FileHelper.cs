@@ -26,7 +26,7 @@ namespace HahnCargoTruckLoader.Helper
 
     public static Truck? LoadTruckFromJson()
     {
-      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 12", "HahnCargoTruckLoaderTruck.json");
+      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 10", "HahnCargoTruckLoaderTruck.json");
 
       if (!File.Exists(path)) return null;
 
@@ -36,7 +36,7 @@ namespace HahnCargoTruckLoader.Helper
 
     public static List<Crate>? LoadCratesFromJson()
     {
-      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 12", "HahnCargoTruckLoaderCrates.json");
+      var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "hahn\\WRONG CASE 10", "HahnCargoTruckLoaderCrates.json");
 
       if (!File.Exists(path)) return null;
 

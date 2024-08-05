@@ -31,9 +31,9 @@ namespace HahnCargoTruckLoader.Logic
             int volumeCrates = this.crates.Sum(crate => crate.Width * crate.Height * crate.Length);
 
             // Check if any crate is larger than the truck's dimensions.
-            bool hasCrateMoreThanWidth = this.crates.Any(crate => crate.Width > truck.Width && crate.Width > truck.Height);
-            bool hasCrateMoreThanHeight = this.crates.Any(crate => crate.Height > truck.Height && crate.Height > truck.Width);
-            bool hasCrateMoreThanLength = this.crates.Any(crate => crate.Length > truck.Length);
+            bool hasCrateMoreThanWidth = this.crates.Any(crate => crate.Width > truck.Width && crate.Width > truck.Height && crate.Width > truck.Length);
+            bool hasCrateMoreThanHeight = this.crates.Any(crate => crate.Height > truck.Height && crate.Height > truck.Width && crate.Height > truck.Length);
+            bool hasCrateMoreThanLength = this.crates.Any(crate => crate.Length > truck.Length && crate.Length > truck.Width && crate.Length > truck.Height);
 
             // Throw exceptions if crates are too large for the truck.
             if (hasCrateMoreThanWidth)
@@ -70,9 +70,9 @@ namespace HahnCargoTruckLoader.Logic
                         for (int k = 0; k < truck.Length; k++)
                         {
                             // Try to place the crate in different orientations.
-                            if (CanPlaceCrate(sortedCrates[crateIndex], i, j, k))
+                            if (CanPlaceCrateWithoutRotation(sortedCrates[crateIndex], i, j, k))
                             {
-                                PlaceCrate(sortedCrates[crateIndex], i, j, k);
+                                PlaceCrateWithoutRotation(sortedCrates[crateIndex], i, j, k);
                                 var loadingInstruction = new LoadingInstruction
                                 {
                                     CrateId = sortedCrates[crateIndex].CrateID,
@@ -86,9 +86,9 @@ namespace HahnCargoTruckLoader.Logic
                                 next = true;
                                 break;
                             }
-                            else if (CanPlaceCrateHorizontal(sortedCrates[crateIndex], i, j, k))
+                            else if (CanPlaceCrateVertical(sortedCrates[crateIndex], i, j, k))
                             {
-                                PlaceCrateHorizontal(sortedCrates[crateIndex], i, j, k);
+                                PlaceCrateVertical(sortedCrates[crateIndex], i, j, k);
                                 var loadingInstruction = new LoadingInstruction
                                 {
                                     CrateId = sortedCrates[crateIndex].CrateID,
@@ -102,9 +102,9 @@ namespace HahnCargoTruckLoader.Logic
                                 next = true;
                                 break;
                             }
-                            else if (CanPlaceCrateVertical(sortedCrates[crateIndex], i, j, k))
+                            else if (CanPlaceCrateHorizontal(sortedCrates[crateIndex], i, j, k))
                             {
-                                PlaceCrateVertical(sortedCrates[crateIndex], i, j, k);
+                                PlaceCrateHorizontal(sortedCrates[crateIndex], i, j, k);
                                 var loadingInstruction = new LoadingInstruction
                                 {
                                     CrateId = sortedCrates[crateIndex].CrateID,
@@ -147,7 +147,7 @@ namespace HahnCargoTruckLoader.Logic
         }
 
         // Method to check if a crate can be placed in the cargo space without rotation.
-        bool CanPlaceCrate(Crate crate, int a, int b, int c)
+        bool CanPlaceCrateWithoutRotation(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Width; i++)
                 for (int j = 0; j < crate.Height; j++)
@@ -164,8 +164,8 @@ namespace HahnCargoTruckLoader.Logic
             return true;
         }
 
-        // Method to check if a crate can be placed horizontally.
-        bool CanPlaceCrateHorizontal(Crate crate, int a, int b, int c)
+        // Method to check if a crate can be placed  vertically.
+        bool CanPlaceCrateVertical(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Height; i++)
                 for (int j = 0; j < crate.Width; j++)
@@ -182,8 +182,8 @@ namespace HahnCargoTruckLoader.Logic
             return true;
         }
 
-        // Method to check if a crate can be placed vertically.
-        bool CanPlaceCrateVertical(Crate crate, int a, int b, int c)
+        // Method to check if a crate can be placed horizontally.
+        bool CanPlaceCrateHorizontal(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Length; i++)
                 for (int j = 0; j < crate.Height; j++)
@@ -219,7 +219,7 @@ namespace HahnCargoTruckLoader.Logic
         }
 
         // Methods to place crates in the cargo space for different orientations.
-        void PlaceCrate(Crate crate, int a, int b, int c)
+        void PlaceCrateWithoutRotation(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Width; i++)
                 for (int j = 0; j < crate.Height; j++)
@@ -227,7 +227,7 @@ namespace HahnCargoTruckLoader.Logic
                         this.cargoSpace[a + i, b + j, c + k] = true;
         }
 
-        void PlaceCrateHorizontal(Crate crate, int a, int b, int c)
+        void PlaceCrateVertical(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Height; i++)
                 for (int j = 0; j < crate.Width; j++)
@@ -235,7 +235,7 @@ namespace HahnCargoTruckLoader.Logic
                         this.cargoSpace[a + i, b + j, c + k] = true;
         }
 
-        void PlaceCrateVertical(Crate crate, int a, int b, int c)
+        void PlaceCrateHorizontal(Crate crate, int a, int b, int c)
         {
             for (int i = 0; i < crate.Length; i++)
                 for (int j = 0; j < crate.Height; j++)
